@@ -1,8 +1,22 @@
-# React + Vite
+# Model Management group 10
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run the application for the first time go to root directory and install the app:
 
-Currently, two official plugins are available:
+```
+npm install
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run the application type the following:
+
+```
+npm run dev
+```
+
+This will start the application in a localhost.
+
+#### IMPORTANT: The backend must be running. Download the ModelsApi.zip from BrightSpace and run the solution before starting this application.
+
+_This React application was created using Vite and is using MUI core_.
+
+- [Vite](https://vitejs.dev/guide/)
+- [MUI](https://mui.com/material-ui/getting-started/)
