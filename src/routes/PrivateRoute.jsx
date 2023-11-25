@@ -4,9 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
-  const token = localStorage.getItem("token");
 
-  return user || token ? children : <Navigate to="/not-logged-in" />;
+  return user ? children : <Navigate to="/signin" />;
 };
 
 export default PrivateRoute;

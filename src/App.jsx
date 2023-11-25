@@ -1,8 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
 import HomePage from "./pages/HomePage";
-import NotLoggedInPage from "./pages/NotLoggedInPage";
 import { ThemeProvider, createTheme } from "@mui/material";
 import PrivateRoute from "./routes/PrivateRoute";
 
@@ -14,8 +18,7 @@ function App() {
       <ThemeProvider theme={defaultTheme}>
         <Router>
           <Routes>
-            <Route path="/" element={<SignInPage />} />
-            <Route path="/not-logged-in" element={<NotLoggedInPage />} />
+            <Route path="/signin" element={<SignInPage />} />
             <Route
               path="/home"
               element={
@@ -24,6 +27,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/" element={<Navigate to={"/signin"} replace />} />
           </Routes>
         </Router>
       </ThemeProvider>

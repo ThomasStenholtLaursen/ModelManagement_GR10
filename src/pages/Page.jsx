@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// Page.jsx
 import { Box, Container } from "@mui/material";
 
 const Page = ({ children }) => {
