@@ -1,18 +1,16 @@
-import { AppBar, CssBaseline, Toolbar, Typography } from "@mui/material";
+// App.jsx
 import React from "react";
+import SignInPage from "./pages/SignInPage";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 function App() {
+  const defaultTheme = createTheme();
+
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" style={{ width: "100%" }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Model Management
-          </Typography>
-          {/* Login button and then the login modal component */}
-        </Toolbar>
-      </AppBar>
+      <ThemeProvider theme={defaultTheme}>
+        <SignInPage />
+      </ThemeProvider>
     </React.Fragment>
   );
 }
