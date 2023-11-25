@@ -11,9 +11,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Page from "./Page";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
   const { loginUser } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +29,7 @@ const SignInPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser(email, password);
+    await loginUser(email, password, navigate);
   };
 
   return (
