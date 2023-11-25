@@ -1,4 +1,4 @@
-//Taken from: https://stackoverflow.com/questions/53835816/decode-jwt-token-react
+//From: https://stackoverflow.com/questions/53835816/decode-jwt-token-react
 export const ParseJwt = (token) => {
   if (!token) return;
   var base64Url = token.split(".")[1];

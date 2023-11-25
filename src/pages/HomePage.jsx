@@ -1,15 +1,22 @@
-import MenuDrawer from "../contexts/MenuDrawer";
-import { useAuth } from "../hooks/useAuth";
+import { Typography } from "@mui/material";
+import Page from "./Page";
+import { useAuth } from "../hooks/useAuth"; // Assuming useAuth is your custom hook for authentication
 
 const HomePage = () => {
-  const { user, logoutUser } = useAuth();
+  const { user } = useAuth();
 
   return (
-    <MenuDrawer>
-      <h1>{user.role}</h1>
-      <h1>{user.email}</h1>
-      <button onClick={logoutUser}>Logout</button>
-    </MenuDrawer>
+    <Page>
+      <Typography variant="h5" gutterBottom>
+        Welcome
+      </Typography>
+      {user && (
+        <>
+          <Typography variant="subtitle1">Role: {user.role}</Typography>
+          <Typography variant="subtitle1">Email: {user.email}</Typography>
+        </>
+      )}
+    </Page>
   );
 };
 
