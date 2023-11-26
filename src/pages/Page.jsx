@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// Page.jsx
 import { Box, Container } from "@mui/material";
 
 const Page = ({ children }) => {
@@ -7,11 +6,10 @@ const Page = ({ children }) => {
     <Container
       maxWidth="xl"
       sx={{
-        height: "100vh",
+        mt: 5,
+        height: "calc(100vh - 104px)",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        overflow: "auto",
       }}
     >
       <Box sx={{ bgcolor: "white", width: "100%", flex: 1 }}>{children}</Box>

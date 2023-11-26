@@ -1,29 +1,42 @@
-/* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from "react";
-import * as jwt_decode from "jwt-decode";
+import { createContext, useState } from "react";
+import PropTypes from "prop-types";
+import API_URLS from "../config/config";
+import { parseTokenToUser } from "../helpers/ParseToken";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(parseTokenToUser(token));
   const isManager = user?.role === "Manager";
   const isModel = user?.role === "Model";
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      loginUser(token);
+  const loginUser = async (email, password, navigate) => {
+    try {
+      let response = await fetch(API_URLS.LOGIN, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      });
+      if (response.ok) {
+        let data = await response.json();
+        localStorage.setItem("token", data.jwt);
+        setToken(data.jwt);
+        setUser(parseTokenToUser(data.jwt));
+        navigate("/home");
+      } else {
+        alert("Server returned: " + response.statusText);
+      }
+    } catch (err) {
+      alert("Error: " + err);
     }
-  }, []);
-
-  const loginUser = (token) => {
-    localStorage.setItem("token", token);
-    const decoded = jwt_decode(token);
-    setUser(decoded);
   };
 
   const logoutUser = () => {
     localStorage.removeItem("token");
+    setToken(null);
     setUser(null);
   };
 
@@ -34,6 +47,10 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthProvider;

@@ -1,12 +1,7 @@
-import React from 'react';
+import Page from "./Page";
 
 const ModelsPage = () => {
-  return (
-    <div>
-      <h2>Models</h2>
-      {/* Your models content goes here */}
-    </div>
-  );
+  return <Page>Models Page content</Page>;
 };
 
 export default ModelsPage;

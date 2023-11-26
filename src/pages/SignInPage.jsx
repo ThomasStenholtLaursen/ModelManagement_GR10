@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Container,
@@ -7,13 +6,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Page from "./Page";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
   const { loginUser } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +27,7 @@ const SignInPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser(email, password);
+    await loginUser(email, password, navigate);
   };
 
   return (
@@ -42,14 +42,8 @@ const SignInPage = () => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h4">
             Model Management
-          </Typography>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
           </Typography>
           <Box
             component="form"
