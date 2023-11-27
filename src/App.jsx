@@ -53,9 +53,11 @@ function App() {
               path="/managers"
               element={
                 <PrivateRoute>
-                  <Layout>
-                    <ManagerPage />
-                  </Layout>
+                  <ManagerRoute>
+                    <Layout>
+                      <ManagerPage />
+                    </Layout>
+                  </ManagerRoute>
                 </PrivateRoute>
               }
             />

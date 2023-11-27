@@ -1,7 +1,6 @@
-import Page from "./Page";
 
 const JobsPage = () => {
-  return <Page>Jobs Page Content</Page>;
+  return <>Jobs Page Content</>;
 };
 
 export default JobsPage;

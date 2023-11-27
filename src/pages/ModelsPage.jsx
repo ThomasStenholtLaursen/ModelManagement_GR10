@@ -1,7 +1,6 @@
-import Page from "./Page";
 
 const ModelsPage = () => {
-  return <Page>Models Page content</Page>;
+  return <>Models Page content</>;
 };
 
 export default ModelsPage;

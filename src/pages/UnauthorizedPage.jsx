@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
-import Page from "./Page";
 
 const UnauthorizedPage = () => {
   const navigate = useNavigate();
@@ -10,14 +9,13 @@ const UnauthorizedPage = () => {
   };
 
   return (
-    <Page>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "100%",
+          height: "100vh",
           textAlign: "center",
         }}
       >
@@ -31,7 +29,6 @@ const UnauthorizedPage = () => {
           Go Back
         </Button>
       </Box>
-    </Page>
   );
 };
 
