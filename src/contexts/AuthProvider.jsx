@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 import PropTypes from "prop-types";
-import API_URLS from "../config/config";
 import { parseTokenToUser } from "../helpers/ParseToken";
 import { useSnackbar } from "notistack";
+import Api_Urls from "../config/urls";
 
 export const AuthContext = createContext(null);
 
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     try {
       setIsLoading(true);
-      let response = await fetch(API_URLS.LOGIN, {
+      let response = await fetch(Api_Urls.LOGIN, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: new Headers({
