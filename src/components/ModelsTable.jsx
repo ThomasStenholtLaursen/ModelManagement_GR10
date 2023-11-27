@@ -26,7 +26,7 @@ const ModelsTable = ({ models, isLoading }) => {
           </TableHead>
           <TableBody>
             {isLoading
-              ? Array.from(new Array(20)).map((_, index) => (
+              ? Array.from(new Array(5)).map((_, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Skeleton variant="text" />
