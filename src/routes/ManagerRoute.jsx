@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const ManagerRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { user, isManager } = useAuth();
 
-  return user && user?.role === "Manager" ? (
+  return user && isManager ? (
     children
   ) : (
     <Navigate to="/unauthorized" />

@@ -1,12 +1,11 @@
 import { Typography } from "@mui/material";
-import Page from "./Page";
 import { useAuth } from "../hooks/useAuth"; // Assuming useAuth is your custom hook for authentication
 
 const HomePage = () => {
   const { user } = useAuth();
 
   return (
-    <Page>
+    <>
       <Typography variant="h5" gutterBottom>
         Welcome
       </Typography>
@@ -16,7 +15,7 @@ const HomePage = () => {
           <Typography variant="subtitle1">Email: {user.email}</Typography>
         </>
       )}
-    </Page>
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import { useAuth } from "../hooks/useAuth";
-import Page from "./Page";
 import useFetchModels from "../hooks/useFetchModels";
 import { useEffect, useState } from "react";
 import ModelsTable from "../components/ModelsTable";
@@ -25,14 +24,14 @@ const ModelsPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Page>
+    <>
       <Box sx={{ mb: 2 }}>
         <Button variant="contained" startIcon={<PersonAddIcon />}>
           Add Model
         </Button>
       </Box>
       <ModelsTable models={models} isLoading={isLoading} />
-    </Page>
+    </>
   );
 };
 

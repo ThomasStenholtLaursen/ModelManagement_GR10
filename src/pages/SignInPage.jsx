@@ -7,7 +7,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Page from "./Page";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +37,6 @@ const SignInPage = () => {
   };
 
   return (
-    <Page>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -99,7 +97,6 @@ const SignInPage = () => {
           </Box>
         </Box>
       </Container>
-    </Page>
   );
 };
 
