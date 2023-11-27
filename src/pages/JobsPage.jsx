@@ -5,9 +5,7 @@ import JobsTable from "../components/JobsTable";
 import { Box, Button } from "@mui/material";
 import AddBox from "@mui/icons-material/AddBox";
 
-
 const JobsPage = () => {
-
   const { token } = useAuth();
   const { fetchData, isLoading, error } = useFetchJobs(token);
   const [jobs, setJobs] = useState([]);
@@ -25,7 +23,6 @@ const JobsPage = () => {
 
   if (error) return <div>Error: {error}</div>;
 
-
   return (
     <>
       <Box sx={{ mb: 2 }}>
@@ -33,8 +30,7 @@ const JobsPage = () => {
           Add Job
         </Button>
       </Box>
-      <JobsTable jobs={jobs} isLoading={isLoading}/>
-
+      <JobsTable jobs={jobs} isLoading={isLoading} />
     </>
   );
 };

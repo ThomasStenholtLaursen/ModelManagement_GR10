@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { DataGrid } from "@mui/x-data-grid";
 
-const ModelsTable = ({ models, isLoading }) => {
+const ModelsGrid = ({ models, isLoading }) => {
   const columns = [
     {
       field: "fullName",
@@ -48,14 +48,13 @@ const ModelsTable = ({ models, isLoading }) => {
     },
   ];
 
-  // Transform models to the format expected by DataGrid
   const rows = models.map((model, index) => ({
     id: index,
     ...model,
   }));
 
   return (
-    <div style={{ height: `calc(100vh - ${150}px)`, width: "100%" }}>
+    <div style={{ height: `calc(100vh - ${145}px)`, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -67,4 +66,4 @@ const ModelsTable = ({ models, isLoading }) => {
   );
 };
 
-export default ModelsTable;
+export default ModelsGrid;

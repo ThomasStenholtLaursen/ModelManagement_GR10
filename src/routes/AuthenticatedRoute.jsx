@@ -2,10 +2,10 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-const AuthenticatedRoute = ({ children }) => {
+const ConditionalAuthenticatedRoute = ({ children }) => {
   const { user } = useAuth();
 
   return user ? <Navigate to="/home" /> : children;
 };
 
-export default AuthenticatedRoute;
+export default ConditionalAuthenticatedRoute;

@@ -3,7 +3,7 @@ import useFetchModels from "../hooks/useFetchModels";
 import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import ModelsTable from "../components/Model/ModelsTable";
+import ModelsGrid from "../components/Model/ModelsTable";
 import { useNavigate } from "react-router";
 import Paths from "../config/paths";
 
@@ -40,7 +40,7 @@ const ModelsPage = () => {
         </Button>
       </Box>
       <Box sx={{ display: "flex", pb: 2 }}>
-        <ModelsTable models={models} isLoading={isLoading} />
+        <ModelsGrid models={models} isLoading={isLoading} />
       </Box>
     </>
   );

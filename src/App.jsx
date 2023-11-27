@@ -19,7 +19,7 @@ import JobPage from "./pages/JobPage";
 import Paths from "./config/paths";
 import AddModelPage from "./pages/AddModelPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import AuthenticatedRoute from "./routes/AuthenticatedRoute";
+import ConditionalAuthenticatedRoute from "./routes/AuthenticatedRoute";
 
 function App() {
   const defaultTheme = createTheme({ palette: { mode: "light" } });
@@ -33,17 +33,17 @@ function App() {
             <Route
               path={Paths.SIGNIN}
               element={
-                <AuthenticatedRoute>
+                <ConditionalAuthenticatedRoute>
                   <SignInPage />
-                </AuthenticatedRoute>
+                </ConditionalAuthenticatedRoute>
               }
             />
             <Route
               path={Paths.UNAUTHORIZED}
               element={
-                <Layout>
-                  <UnauthorizedPage />{" "}
-                </Layout>
+                <ConditionalAuthenticatedRoute>
+                  <UnauthorizedPage />
+                </ConditionalAuthenticatedRoute>
               }
             />
             <Route

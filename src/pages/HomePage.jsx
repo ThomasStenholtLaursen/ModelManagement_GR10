@@ -12,6 +12,7 @@ const HomePage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        mt: 10,
       }}
     >
       <Card sx={{ minWidth: 275 }}>

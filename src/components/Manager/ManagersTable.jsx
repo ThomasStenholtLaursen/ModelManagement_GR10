@@ -1,49 +1,39 @@
 /* eslint-disable react/prop-types */
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Skeleton } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
-const ManagersTable = ({ managers, isLoading }) => {
+const ManagersGrid = ({ managers, isLoading }) => {
+  const columns = [
+    {
+      field: "fullName",
+      headerName: "Name",
+      flex: 1,
+      valueGetter: (params) =>
+        `${params.row.firstName || "N/A"} ${params.row.lastName || "N/A"}`,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+      valueGetter: (params) => `${params.row.email || "N/A"}`,
+    },
+  ];
+
+  const rows = managers.map((model, index) => ({
+    id: index,
+    ...model,
+  }));
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: `calc(100vh - ${150}px)` }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isLoading
-              ? Array.from(new Array(3)).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                  </TableRow>
-                ))
-              : managers.map((manager) => (
-                  <TableRow key={manager.efManagerId}>
-                    <TableCell component="th" scope="row">
-                      {manager.firstName + " " + manager.lastName}
-                    </TableCell>
-                    <TableCell align="right">{manager.email}</TableCell>
-                  </TableRow>
-                ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+    <div style={{ height: `calc(100vh - ${145}px)`, width: "100%" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[5]}
+        loading={isLoading}
+      />
+    </div>
   );
 };
 
-export default ManagersTable;
+export default ManagersGrid;
