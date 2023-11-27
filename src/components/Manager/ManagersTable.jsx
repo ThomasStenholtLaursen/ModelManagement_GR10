@@ -11,7 +11,7 @@ import { Skeleton } from "@mui/material";
 const ManagersTable = ({ managers, isLoading }) => {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: `calc(100vh - ${135}px)` }}>
+      <TableContainer sx={{ maxHeight: `calc(100vh - ${150}px)` }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

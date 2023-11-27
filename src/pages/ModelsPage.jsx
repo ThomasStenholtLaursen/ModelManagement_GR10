@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ModelsTable from "../components/Model/ModelsTable";
+import { useNavigate } from "react-router";
+import Paths from "../config/paths";
 
 const ModelsPage = () => {
+  const navigate = useNavigate();
   const { token } = useAuth();
-  const { fetchData, isLoading, error } = useFetchModels(token);
+  const { fetchData, isLoading } = useFetchModels(token);
   const [models, setModels] = useState([]);
 
   useEffect(() => {
@@ -21,16 +24,24 @@ const ModelsPage = () => {
     getModels();
   }, [fetchData]);
 
-  if (error) return <div>Error: {error}</div>;
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <>
       <Box sx={{ display: "flex", pb: 2 }}>
-        <Button variant="contained" startIcon={<PersonAddIcon />}>
+        <Button
+          variant="contained"
+          onClick={() => handleNavigation(Paths.ADDMODEL)}
+          startIcon={<PersonAddIcon />}
+        >
           Add Model
         </Button>
       </Box>
-      <ModelsTable models={models} isLoading={isLoading} />
+      <Box sx={{ display: "flex", pb: 2 }}>
+        <ModelsTable models={models} isLoading={isLoading} />
+      </Box>
     </>
   );
 };

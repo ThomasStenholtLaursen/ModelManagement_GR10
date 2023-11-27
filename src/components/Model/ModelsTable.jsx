@@ -1,87 +1,69 @@
 /* eslint-disable react/prop-types */
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Skeleton } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
 const ModelsTable = ({ models, isLoading }) => {
+  const columns = [
+    {
+      field: "fullName",
+      headerName: "Name",
+      flex: 1,
+      valueGetter: (params) =>
+        `${params.row.firstName || "N/A"} ${params.row.lastName || "N/A"}`,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+      valueGetter: (params) => `${params.row.email || "N/A"}`,
+    },
+    {
+      field: "phoneNo",
+      headerName: "Phone",
+      flex: 0.5,
+      valueGetter: (params) => `${params.row.phoneNo || "N/A"}`,
+    },
+    {
+      field: "height",
+      headerName: "Height",
+      flex: 0.3,
+      valueGetter: (params) => `${params.row.height || "N/A"}`,
+    },
+    {
+      field: "shoeSize",
+      headerName: "Shoe Size",
+      flex: 0.3,
+      valueGetter: (params) => `${params.row.shoeSize || "N/A"}`,
+    },
+    {
+      field: "city",
+      headerName: "City",
+      flex: 0.5,
+      valueGetter: (params) => `${params.row.city || "N/A"}`,
+    },
+    {
+      field: "country",
+      headerName: "Country",
+      flex: 0.5,
+      valueGetter: (params) => `${params.row.country || "N/A"}`,
+    },
+  ];
+
+  // Transform models to the format expected by DataGrid
+  const rows = models.map((model, index) => ({
+    id: index,
+    ...model,
+  }));
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: `calc(100vh - ${135}px)` }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right">Height</TableCell>
-              <TableCell align="right">Shoe Size</TableCell>
-              <TableCell align="right">City</TableCell>
-              <TableCell align="right">Country</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isLoading
-              ? Array.from(new Array(5)).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                    <TableCell align="right">
-                      <Skeleton variant="text" />
-                    </TableCell>
-                  </TableRow>
-                ))
-              : models.map((model) => (
-                  <TableRow key={model.efModelId}>
-                    <TableCell component="th" scope="row">
-                      {model.firstName && model.lastName
-                        ? model.firstName + " " + model.lastName
-                        : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.email ? model.email : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.phoneNo ? model.phoneNo : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.height ? model.height + "cm" : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.shoeSize ? "US " + model.shoeSize : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.city ? model.city : "N/A"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {model.country ? model.country : "N/A"}
-                    </TableCell>
-                  </TableRow>
-                ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+    <div style={{ height: `calc(100vh - ${150}px)`, width: "100%" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[5]}
+        loading={isLoading}
+      />
+    </div>
   );
 };
 
