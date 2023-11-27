@@ -7,9 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Skeleton } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
 
 const JobsTable = ({ jobs, isLoading }) => {
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+      navigate(path);
+    };
     const formattedDate = (date) => {
         return new Date(date).toLocaleDateString();}
 
@@ -25,12 +30,11 @@ const JobsTable = ({ jobs, isLoading }) => {
               <TableCell>Location</TableCell>
               <TableCell align="center">Start Date</TableCell>
               <TableCell align="center">Days</TableCell>
-              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {isLoading
-              ? Array.from(new Array(5)).map((_, index) => (
+              ? Array.from(new Array(4)).map((_, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Skeleton variant="text" />
@@ -47,16 +51,13 @@ const JobsTable = ({ jobs, isLoading }) => {
                   </TableRow>
                 ))
               : jobs.map((job) => (
-                  <TableRow key={job.jobId} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}>
+                  <TableRow key={job.jobId} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} onClick={() => handleNavigation(`/jobs/${job.jobId}`)}>
                     <TableCell>
                       {job.customer}
                     </TableCell>
                     <TableCell >{job.location}</TableCell>
                     <TableCell align="center">{formattedDate(job.startDate)}</TableCell>
                     <TableCell align="center">{job.days}</TableCell>
-                    <TableCell align="right">
-                      <DeleteIcon onClick={""} />
-                    </TableCell>
                   </TableRow>
                 ))}
           </TableBody>

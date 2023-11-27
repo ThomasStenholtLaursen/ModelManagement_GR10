@@ -1,14 +1,14 @@
 import { useState, useCallback } from "react";
 
-const useFetchJobs = (token) => {
+const useFetchJob = (token) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (jobId) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://localhost:7181/api/Jobs", {
+      const response = await fetch(`https://localhost:7181/api/Jobs/${jobId}`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -33,4 +33,4 @@ const useFetchJobs = (token) => {
   return { fetchData, isLoading, error };
 };
 
-export default useFetchJobs;
+export default useFetchJob;

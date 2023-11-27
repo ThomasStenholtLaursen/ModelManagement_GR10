@@ -15,6 +15,7 @@ import ManagerPage from "./pages/ManagerPage";
 import Layout from "./components/Layout";
 import JobsPage from "./pages/JobsPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import JobPage from "./pages/JobPage";
 
 function App() {
   const defaultTheme = createTheme({ palette: { mode: "light" } });
@@ -67,6 +68,16 @@ function App() {
                 <PrivateRoute>
                   <Layout>
                     <JobsPage />
+                  </Layout>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/jobs/:jobId"
+              element={
+                <PrivateRoute>
+                  <Layout>
+                    <JobPage />
                   </Layout>
                 </PrivateRoute>
               }
