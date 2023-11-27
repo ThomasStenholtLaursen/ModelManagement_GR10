@@ -15,6 +15,7 @@ import ManagerPage from "./pages/ManagerPage";
 import Layout from "./components/Layout/Layout";
 import JobsPage from "./pages/JobsPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import JobPage from "./pages/JobPage";
 import Paths from "./config/paths";
 import AddModelPage from "./pages/AddModelPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -102,6 +103,17 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              path="/jobs/:jobId"
+              element={
+                <PrivateRoute>
+                  <Layout>
+                    <JobPage />
+                  </Layout>
+                </PrivateRoute>
+              }
+            />
+            <Route path="/" element={<Navigate to={"/signin"} replace />} />
             <Route path="/" element={<Navigate to={Paths.SIGNIN} replace />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
