@@ -2,17 +2,21 @@ import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 import API_URLS from "../config/config";
 import { parseTokenToUser } from "../helpers/ParseToken";
+import { useSnackbar } from "notistack";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(parseTokenToUser(token));
+  const [isLoading, setIsLoading] = useState(false);
   const isManager = user?.role === "Manager";
   const isModel = user?.role === "Model";
 
-  const loginUser = async (email, password, navigate) => {
+  const loginUser = async (email, password) => {
     try {
+      setIsLoading(true);
       let response = await fetch(API_URLS.LOGIN, {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -25,12 +29,21 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("token", data.jwt);
         setToken(data.jwt);
         setUser(parseTokenToUser(data.jwt));
-        navigate("/home");
+        setIsLoading(false);
+        return true;
       } else {
-        alert("Server returned: " + response.statusText);
+        setIsLoading(false);
+        enqueueSnackbar("Email or password is incorrect", {
+          variant: "error",
+        });
+        return false;
       }
     } catch (err) {
-      alert("Error: " + err);
+      setIsLoading(false);
+      enqueueSnackbar("An error occurred - please try again", {
+        variant: "error",
+      });
+      return false;
     }
   };
 
@@ -42,7 +55,15 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isManager, isModel, loginUser, logoutUser }}
+      value={{
+        user,
+        token,
+        isLoading,
+        isManager,
+        isModel,
+        loginUser,
+        logoutUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
