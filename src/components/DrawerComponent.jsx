@@ -1,44 +1,37 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemText, AppBar, Toolbar, Typography, Divider } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, AppBar, Toolbar, Typography, Divider, ListItemButton, ListItemIcon } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/system';
 
 const DrawerComponent = ({ children }) => {
     const drawerWidth = 240;
 
 
   return (
-    <div style={{ display: 'flex' }}>
       <Drawer
         variant="permanent"
-        anchor="left"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+        }}
       >
-        <Toolbar/>
-        <Divider/>
-        <List>
-          <ListItem component={Link} to="/joblist">
-            <ListItemText primary="Job List" />
-          </ListItem>
-          <ListItem component={Link} to="/models">
-            <ListItemText primary="Models" />
-          </ListItem>
-          <ListItem component={Link} to="/managers">
-            <ListItemText primary="Managers" />
-          </ListItem>
-        </List>
+        <Toolbar />
+        <Box sx={{ overflow: 'auto' }}>
+            <List>
+                <ListItem component={Link} to="home/joblist">
+                    <ListItemText primary="Jobs" />
+                </ListItem>
+                <ListItem component={Link} to="/models">
+                    <ListItemText primary="Models" />
+                </ListItem>
+                <ListItem component={Link} to="/managers">
+                    <ListItemText primary="Managers" />
+                </ListItem>
+            </List>
+        </Box>
+        
       </Drawer>
-      <div style={{ flexGrow: 1, padding: '20px' }}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <Typography variant="h6" noWrap>
-              Your App Title
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <div style={{ marginTop: '64px' }}>
-          {children}
-        </div>
-      </div>
-    </div>
   );
 };
 
