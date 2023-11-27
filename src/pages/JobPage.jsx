@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Breadcrumbs, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetchJob from "../hooks/useFetchJob";
-import DeleteIcon from '@mui/icons-material/Delete';
 import useFetchExpenses from "../hooks/useFetchExpenses";
 import useFetchModels from "../hooks/useFetchModels";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AddModelToJobModal from "../components/Job/AddModelToJobModal";
+import ExspensesTable from "../components/Job/ExpensesTable";
+import ModelsOnJobTable from "../components/Job/ModelsOnJobTable";
 
 const JobPage = () => {
     const {jobId} = useParams()
@@ -18,6 +21,23 @@ const JobPage = () => {
     const [job, setJob] = useState();
     const [expenses, setExpenses] = useState([]);
     const [models, setModels] = useState([]);
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const handleOpenAddModelToJobModal = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+    
+    const handleOpenExpenseModal = () => {
+        // Implement logic to open the AddExpenseModal
+    }
+    const handleAddModelToJob = (selectedModel) => {
+        // Implement logic to add the selectedModel to your job
+        console.log("Selected Model:", selectedModel);
+    };
     
     useEffect(() => {
       const loadJob = async () => {
@@ -51,16 +71,10 @@ const JobPage = () => {
       loadModels();
     }, [fetchExpenseData, fetchJobData, fetchModelsData, isManager, jobId, user.id]);
 
-    const formattedDate = (date) => {
-        return new Date(date).toLocaleDateString();}
-
     const handleJobsLinkClick = () => {
         navigate(-1);
       };
 
-    const modelNameForExpense = (modelId) => {
-        const model = models.find(model => model.efModelId === Number(modelId));
-        return `${model.firstName} ${model.lastName}`}
   
     if (error) return <div>Error: {error}</div>;
   
@@ -73,58 +87,32 @@ const JobPage = () => {
             </Link>
             <Typography color="text.primary">{job ? `Job for ${job.customer}` : "Loading..."}</Typography>
           </Breadcrumbs>
-          
-          <Typography variant="h4">Models</Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Delete</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {job?.models.map((model) => (
-                  <TableRow key={model.firstName}>
-                    <TableCell>{`${model.firstName} ${model.lastName}`}</TableCell>
-                    <TableCell>{model.email}</TableCell>
-                    <TableCell>{model.phoneNo}</TableCell>
-                    <TableCell>
-                      <IconButton >
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-    
+          {isManager && (
+            <>
+                <Box sx={{ display: "flex", pb: 2 }}>
+                    <Button variant="contained" startIcon={<PersonAddIcon />} onClick={handleOpenAddModelToJobModal}>
+                    Add Model to job
+                    </Button>
+                </Box>
+                <Typography variant="h4">Models on this job</Typography>
+             <ModelsOnJobTable job={job} />   
+          </>
+          )}
+            {!isManager && (
+                <Box sx={{ display: "flex", pb: 2 }}>
+                    <Button variant="contained" startIcon={<PersonAddIcon />} onClick={handleOpenExpenseModal}>
+                        Add expense
+                    </Button>
+                </Box>  
+            )} 
           <Typography variant="h4">Expenses</Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Text</TableCell>
-                  <TableCell>Model Name</TableCell>
-                  <TableCell>Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {expenses?.map((expense) => (
-                  <TableRow key={expense.efExpenseId}>
-                    <TableCell>{expense.amount}</TableCell>
-                    <TableCell>{expense.text}</TableCell>
-                    <TableCell>{modelNameForExpense(expense.modelId)}</TableCell>
-                    <TableCell>{formattedDate(expense.date)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <ExspensesTable expenses={expenses} models={models} />
+          <AddModelToJobModal
+            models={models}
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            onAdd={handleAddModelToJob}
+            />
         </>
       );
     };

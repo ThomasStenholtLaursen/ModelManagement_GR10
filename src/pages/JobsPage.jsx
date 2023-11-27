@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import useFetchJobs from "../hooks/useFetchJobs";
-import JobsTable from "../components/JobsTable";
 import { Box, Button } from "@mui/material";
 import AddBox from "@mui/icons-material/AddBox";
+import JobsTable from "../components/Job/JobsTable";
 
 
 const JobsPage = () => {
