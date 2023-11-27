@@ -27,7 +27,7 @@ const useFetchModels = (token) => {
       setError(`Something bad happened: ${error.message}`);
       return null;
     } finally {
-      setIsLoading(false);
+      setIsLoading(true);
     }
   }, [token]);
 

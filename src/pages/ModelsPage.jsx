@@ -25,7 +25,7 @@ const ModelsPage = () => {
 
   return (
     <>
-      <Box sx={{ mb: 2 }}>
+      <Box>
         <Button variant="contained" startIcon={<PersonAddIcon />}>
           Add Model
         </Button>

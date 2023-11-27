@@ -11,7 +11,7 @@ import { Skeleton } from "@mui/material";
 const ModelsTable = ({ models, isLoading }) => {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 500 }}>
+      <TableContainer sx={{ maxHeight: `calc(100vh - ${135}px)` }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -26,7 +26,7 @@ const ModelsTable = ({ models, isLoading }) => {
           </TableHead>
           <TableBody>
             {isLoading
-              ? Array.from(new Array(5)).map((_, index) => (
+              ? Array.from(new Array(20)).map((_, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Skeleton variant="text" />
