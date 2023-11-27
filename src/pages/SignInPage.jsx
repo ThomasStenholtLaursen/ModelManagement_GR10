@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   CssBaseline,
   TextField,
@@ -12,8 +13,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
-  const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const { loginUser, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +28,13 @@ const SignInPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await loginUser(email, password, navigate);
+    const success = await loginUser(email, password);
+    if (!success) {
+      setEmail("");
+      setPassword("");
+    } else {
+      navigate("/home");
+    }
   };
 
   return (
@@ -75,14 +82,20 @@ const SignInPage = () => {
               onChange={handlePasswordChange}
               value={password}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+            {isLoading ? (
+              <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3 }}
+              >
+                Sign In
+              </Button>
+            )}
           </Box>
         </Box>
       </Container>
