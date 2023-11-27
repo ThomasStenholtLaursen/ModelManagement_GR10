@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import Api_Urls from "../config/urls";
 
-const useFetchModels = (token) => {
+const useFetchManagers = (token) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -9,7 +9,7 @@ const useFetchModels = (token) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(Api_Urls.GETMODELS, {
+      const response = await fetch(Api_Urls.GETMANGERS, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -17,7 +17,6 @@ const useFetchModels = (token) => {
           "Content-Type": "application/json",
         },
       });
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -35,4 +34,4 @@ const useFetchModels = (token) => {
   return { fetchData, isLoading, error };
 };
 
-export default useFetchModels;
+export default useFetchManagers;

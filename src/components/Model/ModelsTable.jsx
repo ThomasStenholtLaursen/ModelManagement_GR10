@@ -54,13 +54,21 @@ const ModelsTable = ({ models, isLoading }) => {
               : models.map((model) => (
                   <TableRow key={model.efModelId}>
                     <TableCell component="th" scope="row">
-                      {model.firstName + " " + model.lastName}
+                      {model.firstName && model.lastName
+                        ? model.firstName + " " + model.lastName
+                        : "N/A"}
                     </TableCell>
-                    <TableCell align="right">{model.email}</TableCell>
-                    <TableCell align="right">{model.phoneNo}</TableCell>
-                    <TableCell align="right">{model.height + "cm"}</TableCell>
                     <TableCell align="right">
-                      {"US " + model.shoeSize}
+                      {model.email ? model.email : "N/A"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {model.phoneNo ? model.phoneNo : "N/A"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {model.height ? model.height + "cm" : "N/A"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {model.shoeSize ? "US " + model.shoeSize : "N/A"}
                     </TableCell>
                     <TableCell align="right">
                       {model.city ? model.city : "N/A"}
