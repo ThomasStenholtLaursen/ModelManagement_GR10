@@ -13,10 +13,10 @@ import WorkIcon from "@mui/icons-material/Work";
 import PersonIcon from "@mui/icons-material/Person";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import Paths from "../../config/paths";
 
 export default function DrawerComponent() {
-  const { user } = useAuth();
-
+  const { isManager } = useAuth();
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -41,27 +41,31 @@ export default function DrawerComponent() {
         <Box sx={{ overflow: "auto" }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigation("/home")}>
+              <ListItemButton onClick={() => handleNavigation(Paths.HOME)}>
                 <ListItemIcon>{<HomeIcon />}</ListItemIcon>
                 <ListItemText primary={"Home"} />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigation("/jobs")}>
+              <ListItemButton onClick={() => handleNavigation(Paths.JOBS)}>
                 <ListItemIcon>{<WorkIcon />}</ListItemIcon>
                 <ListItemText primary={"Jobs"} />
               </ListItemButton>
             </ListItem>
-            {user?.role === "Manager" && (
+            {isManager && (
               <>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => handleNavigation("/models")}>
+                  <ListItemButton
+                    onClick={() => handleNavigation(Paths.MODELS)}
+                  >
                     <ListItemIcon>{<PersonIcon />}</ListItemIcon>
                     <ListItemText primary={"Models"} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => handleNavigation("/managers")}>
+                  <ListItemButton
+                    onClick={() => handleNavigation(Paths.MANAGERS)}
+                  >
                     <ListItemIcon>{<PersonIcon />}</ListItemIcon>
                     <ListItemText primary={"Managers"} />
                   </ListItemButton>
