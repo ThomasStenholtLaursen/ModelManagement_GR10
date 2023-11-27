@@ -12,10 +12,14 @@ import PrivateRoute from "./routes/PrivateRoute";
 import ManagerRoute from "./routes/ManagerRoute";
 import ModelsPage from "./pages/ModelsPage";
 import ManagerPage from "./pages/ManagerPage";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import JobsPage from "./pages/JobsPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import JobPage from "./pages/JobPage";
+import Paths from "./config/paths";
+import AddModelPage from "./pages/AddModelPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import AuthenticatedRoute from "./routes/AuthenticatedRoute";
 
 function App() {
   const defaultTheme = createTheme({ palette: { mode: "light" } });
@@ -26,10 +30,24 @@ function App() {
         <CssBaseline />
         <Router>
           <Routes>
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/unauthorized" element={<UnauthorizedPage />} />
             <Route
-              path="/home"
+              path={Paths.SIGNIN}
+              element={
+                <AuthenticatedRoute>
+                  <SignInPage />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path={Paths.UNAUTHORIZED}
+              element={
+                <Layout>
+                  <UnauthorizedPage />{" "}
+                </Layout>
+              }
+            />
+            <Route
+              path={Paths.HOME}
               element={
                 <PrivateRoute>
                   <Layout>
@@ -39,7 +57,7 @@ function App() {
               }
             />
             <Route
-              path="/models"
+              path={Paths.MODELS}
               element={
                 <PrivateRoute>
                   <ManagerRoute>
@@ -51,7 +69,19 @@ function App() {
               }
             />
             <Route
-              path="/managers"
+              path={Paths.ADDMODEL}
+              element={
+                <PrivateRoute>
+                  <ManagerRoute>
+                    <Layout>
+                      <AddModelPage />
+                    </Layout>
+                  </ManagerRoute>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={Paths.MANAGERS}
               element={
                 <PrivateRoute>
                   <ManagerRoute>
@@ -62,8 +92,9 @@ function App() {
                 </PrivateRoute>
               }
             />
+
             <Route
-              path="/jobs"
+              path={Paths.JOBS}
               element={
                 <PrivateRoute>
                   <Layout>
@@ -83,6 +114,8 @@ function App() {
               }
             />
             <Route path="/" element={<Navigate to={"/signin"} replace />} />
+            <Route path="/" element={<Navigate to={Paths.SIGNIN} replace />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
       </ThemeProvider>

@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Box } from "@mui/material";
-import MenuAppBar from "./MenuAppBar";
-import DrawerComponent from "./DrawerComponent";
+import MenuAppBar from "../Menu/MenuAppBar";
+import DrawerComponent from "../Menu/DrawerComponent";
 
 const drawerWidth = 240;
-const appBarHeight = 64; // Height of the AppBar
+const appBarHeight = 64;
 
 const Layout = ({ children }) => {
   return (
@@ -15,9 +15,9 @@ const Layout = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          pt: 2, // Adds padding top equal to the AppBar's height
-          pb: 2, // Padding bottom 2
-          px: 2, // Padding left and right 2
+          pt: 2,
+          pb: 2,
+          px: 5,
           width: `calc(100% - ${drawerWidth}px)`,
           marginTop: `${appBarHeight}px`,
         }}
