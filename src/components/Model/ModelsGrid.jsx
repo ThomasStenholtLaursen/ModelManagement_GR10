@@ -54,7 +54,7 @@ const ModelsGrid = ({ models, isLoading }) => {
   }));
 
   return (
-    <div style={{ height: `calc(100vh - ${145}px)`, width: "100%" }}>
+    <div style={{ height: `calc(100vh - ${150}px)`, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
