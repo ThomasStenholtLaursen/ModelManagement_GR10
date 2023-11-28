@@ -7,11 +7,14 @@ import AddManagerModal from "../components/Manager/AddManagerModal";
 import useAddManager from "../hooks/useAddManager";
 import validator from "validator";
 import ManagersGrid from "../components/Manager/ManagersGrid";
+import { useNavigate } from "react-router-dom";
+import Paths from "../config/paths";
 
 const ManagerPage = () => {
+  const navigate = useNavigate();
   const { token } = useAuth();
-  const { fetchData, isLoading } = useFetchManagers(token);
-  const { addManager } = useAddManager(token);
+  const { fetchData, isLoading, error: fetchError } = useFetchManagers(token);
+  const { addManager, error: addError } = useAddManager(token);
   const [managers, setManagers] = useState([]);
   const [open, setOpen] = useState(false);
   const [managerFormData, setManagerFormData] = useState({
@@ -32,6 +35,12 @@ const ManagerPage = () => {
       setManagers(managersData);
     }
   }, [fetchData]);
+
+  useEffect(() => {
+    if (addError || fetchError) {
+      navigate(Paths.ERROR);
+    }
+  }, [addError, fetchError, navigate]);
 
   useEffect(() => {
     fetchManagers();

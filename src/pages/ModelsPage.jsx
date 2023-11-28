@@ -10,7 +10,7 @@ import ModelsGrid from "../components/Model/ModelsGrid";
 const ModelsPage = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
-  const { fetchData, isLoading } = useFetchModels(token);
+  const { fetchData, isLoading, error } = useFetchModels(token);
   const [models, setModels] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,12 @@ const ModelsPage = () => {
 
     getModels();
   }, [fetchData]);
+
+  useEffect(() => {
+    if (error) {
+      navigate(Paths.ERROR);
+    }
+  }, [error, navigate]);
 
   const handleNavigation = (path) => {
     navigate(path);
