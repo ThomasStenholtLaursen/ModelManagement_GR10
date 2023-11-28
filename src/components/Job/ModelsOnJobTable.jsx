@@ -25,7 +25,7 @@ const ModelsOnJobTable = ({ job }) => {
                     <TableCell>{model.phoneNo}</TableCell>
                     <TableCell>
                         <IconButton >
-                        <DeleteIcon />
+                            <DeleteIcon />
                         </IconButton>
                     </TableCell>
                     </TableRow>
