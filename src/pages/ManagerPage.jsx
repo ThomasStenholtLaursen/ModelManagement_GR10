@@ -3,10 +3,10 @@ import { Box, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useAuth } from "../hooks/useAuth";
 import useFetchManagers from "../hooks/useFetchManagers";
-import ManagersTable from "../components/Manager/ManagersTable";
 import AddManagerModal from "../components/Manager/AddManagerModal";
 import useAddManager from "../hooks/useAddManager";
 import validator from "validator";
+import ManagersGrid from "../components/Manager/ManagersGrid";
 
 const ManagerPage = () => {
   const { token } = useAuth();
@@ -74,7 +74,7 @@ const ManagerPage = () => {
             Add Manager
           </Button>
         </Box>
-        <ManagersTable managers={managers} isLoading={isLoading} />
+        <ManagersGrid managers={managers} isLoading={isLoading} />
       </Box>
       <AddManagerModal
         open={open}
