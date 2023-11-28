@@ -1,49 +1,36 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { parseTokenToUser } from "../helpers/ParseToken";
-import { useSnackbar } from "notistack";
-import Api_Urls from "../config/urls";
+import { getTokenExpiration } from "../helpers/TokenExpiration";
+import useLoginUser from "../hooks/useLoginUser";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { login, isLoading } = useLoginUser();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(parseTokenToUser(token));
-  const [isLoading, setIsLoading] = useState(false);
   const isManager = user?.role === "Manager";
   const isModel = user?.role === "Model";
 
-  const loginUser = async (email, password) => {
-    try {
-      setIsLoading(true);
-      let response = await fetch(Api_Urls.LOGIN, {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-      });
-      if (response.ok) {
-        let data = await response.json();
-        localStorage.setItem("token", data.jwt);
-        setToken(data.jwt);
-        setUser(parseTokenToUser(data.jwt));
-        setIsLoading(false);
-        return true;
-      } else {
-        setIsLoading(false);
-        enqueueSnackbar("Email or password is incorrect", {
-          variant: "error",
-        });
-        return false;
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const exp = getTokenExpiration(token);
+      if (exp && Date.now() >= exp * 1000) {
+        logoutUser();
       }
-    } catch (err) {
-      setIsLoading(false);
-      enqueueSnackbar("An error occurred - please try again", {
-        variant: "error",
-      });
-      return false;
+    };
+
+    const interval = setInterval(checkTokenExpiration, 300000); // Check token expiration every 5 minute
+
+    return () => clearInterval(interval);
+  }, [token]);
+
+  const loginUser = async (email, password) => {
+    const result = await login(email, password);
+    if (result) {
+      setToken(result.token);
+      setUser(result.user);
     }
   };
 

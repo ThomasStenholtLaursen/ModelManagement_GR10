@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const style = {
   position: "absolute",
@@ -17,10 +18,11 @@ const style = {
 const AddJobModal = ({
   open,
   handleClose,
-  managerFormData,
+  jobFormData,
   handleChange,
   handleSubmit,
   isFormValid,
+  handleDateChange,
 }) => {
   return (
     <Modal
@@ -31,48 +33,49 @@ const AddJobModal = ({
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Manager
+          Add Job
         </Typography>
         <TextField
           required
           label="Customer"
-          name="firstName"
-          value={managerFormData.firstName}
+          name="customer"
+          value={jobFormData.customer}
           onChange={handleChange}
           margin="normal"
         />
-        <TextField
-          required
+        <DatePicker
           label="Start Date"
-          name="lastName"
-          value={managerFormData.lastName}
-          onChange={handleChange}
-          margin="normal"
+          value={jobFormData.startDate}
+          onChange={handleDateChange}
+          slotProps={{
+            textField: {
+              variant: "outlined",
+              fullWidth: true,
+              margin: "normal",
+              required: true,
+            },
+          }}
         />
         <TextField
           required
           label="Days"
-          name="email"
-          type="email"
-          value={managerFormData.email}
+          name="days"
+          value={jobFormData.days}
           onChange={handleChange}
           margin="normal"
         />
         <TextField
           required
           label="Location"
-          name="password"
-          type="password"
-          value={managerFormData.password}
+          name="location"
+          value={jobFormData.location}
           onChange={handleChange}
           margin="normal"
         />
         <TextField
-          required
           label="Comments"
-          name="password"
-          type="password"
-          value={managerFormData.password}
+          name="comments"
+          value={jobFormData.comments}
           onChange={handleChange}
           margin="normal"
         />

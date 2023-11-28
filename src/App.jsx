@@ -20,6 +20,7 @@ import Paths from "./config/paths";
 import AddModelPage from "./pages/AddModelPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ConditionalAuthenticatedRoute from "./routes/AuthenticatedRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const defaultTheme = createTheme({ palette: { mode: "light" } });
@@ -113,8 +114,8 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/" element={<Navigate to={"/signin"} replace />} />
             <Route path="/" element={<Navigate to={Paths.SIGNIN} replace />} />
+            <Route path="/error" element={<ErrorPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>

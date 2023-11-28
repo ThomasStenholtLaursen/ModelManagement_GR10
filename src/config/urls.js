@@ -4,6 +4,7 @@ const Api_Urls = {
   ADDMODEL: "https://localhost:7181/api/Models",
   GETMANGERS: "https://localhost:7181/api/Managers",
   ADDMANAGER: "https://localhost:7181/api/Managers",
+  ADDJOB: "https://localhost:7181/api/Jobs",
 };
 
 export default Api_Urls;

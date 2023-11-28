@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddModelForm from "../components/Model/AddModelForm";
@@ -11,7 +11,7 @@ import validator from "validator";
 const AddModelPage = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
-  const { addModel } = useAddModel(token);
+  const { addModel, error } = useAddModel(token);
 
   const [modelFormData, setModelFormData] = useState({
     firstName: "",
@@ -53,6 +53,12 @@ const AddModelPage = () => {
     setModelFormData({ ...modelFormData, birthDate: newValue });
   };
 
+  useEffect(() => {
+    if (error) {
+      navigate(Paths.ERROR);
+    }
+  }, [error, navigate]);
+
   const handleSubmit = async () => {
     const result = await addModel(modelFormData);
     if (result) {
@@ -82,6 +88,8 @@ const AddModelPage = () => {
   const handleNavigation = (path) => {
     navigate(path);
   };
+
+  if (error) return navigate(Paths.ERROR);
 
   return (
     <Box>
