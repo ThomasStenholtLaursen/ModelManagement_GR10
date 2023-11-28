@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const style = {
   position: "absolute",
@@ -14,13 +15,14 @@ const style = {
   flexDirection: "column",
 };
 
-const AddManagerModal = ({
+const AddJobModal = ({
   open,
   handleClose,
-  managerFormData,
+  jobFormData,
   handleChange,
   handleSubmit,
   isFormValid,
+  handleDateChange,
 }) => {
   return (
     <Modal
@@ -31,39 +33,49 @@ const AddManagerModal = ({
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Manager
+          Add Job
         </Typography>
         <TextField
           required
-          label="First Name"
-          name="firstName"
-          value={managerFormData.firstName}
+          label="Customer"
+          name="customer"
+          value={jobFormData.customer}
+          onChange={handleChange}
+          margin="normal"
+        />
+        <DatePicker
+          label="Start Date"
+          value={jobFormData.startDate}
+          onChange={handleDateChange}
+          slotProps={{
+            textField: {
+              variant: "outlined",
+              fullWidth: true,
+              margin: "normal",
+              required: true,
+            },
+          }}
+        />
+        <TextField
+          required
+          label="Days"
+          name="days"
+          value={jobFormData.days}
           onChange={handleChange}
           margin="normal"
         />
         <TextField
           required
-          label="Last Name"
-          name="lastName"
-          value={managerFormData.lastName}
+          label="Location"
+          name="location"
+          value={jobFormData.location}
           onChange={handleChange}
           margin="normal"
         />
         <TextField
-          required
-          label="Email"
-          name="email"
-          type="email"
-          value={managerFormData.email}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          label="Password"
-          name="password"
-          type="password"
-          value={managerFormData.password}
+          label="Comments"
+          name="comments"
+          value={jobFormData.comments}
           onChange={handleChange}
           margin="normal"
         />
@@ -80,4 +92,4 @@ const AddManagerModal = ({
   );
 };
 
-export default AddManagerModal;
+export default AddJobModal;

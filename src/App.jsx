@@ -19,7 +19,8 @@ import JobPage from "./pages/JobPage";
 import Paths from "./config/paths";
 import AddModelPage from "./pages/AddModelPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import AuthenticatedRoute from "./routes/AuthenticatedRoute";
+import ConditionalAuthenticatedRoute from "./routes/AuthenticatedRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const defaultTheme = createTheme({ palette: { mode: "light" } });
@@ -33,17 +34,17 @@ function App() {
             <Route
               path={Paths.SIGNIN}
               element={
-                <AuthenticatedRoute>
+                <ConditionalAuthenticatedRoute>
                   <SignInPage />
-                </AuthenticatedRoute>
+                </ConditionalAuthenticatedRoute>
               }
             />
             <Route
               path={Paths.UNAUTHORIZED}
               element={
-                <Layout>
-                  <UnauthorizedPage />{" "}
-                </Layout>
+                <ConditionalAuthenticatedRoute>
+                  <UnauthorizedPage />
+                </ConditionalAuthenticatedRoute>
               }
             />
             <Route
@@ -113,8 +114,8 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/" element={<Navigate to={"/signin"} replace />} />
             <Route path="/" element={<Navigate to={Paths.SIGNIN} replace />} />
+            <Route path="/error" element={<ErrorPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
