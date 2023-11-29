@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";

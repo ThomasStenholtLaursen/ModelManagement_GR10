@@ -26,13 +26,13 @@ const ModelsGrid = ({ models, isLoading }) => {
       field: "height",
       headerName: "Height",
       flex: 0.3,
-      valueGetter: (params) => `${params.row.height || "N/A"}`,
+      valueGetter: (params) => `${`${params.row.height}m` || "N/A"}`,
     },
     {
       field: "shoeSize",
       headerName: "Shoe Size",
       flex: 0.3,
-      valueGetter: (params) => `${params.row.shoeSize || "N/A"}`,
+      valueGetter: (params) => `${`US ${params.row.shoeSize}` || "N/A"}`,
     },
     {
       field: "city",

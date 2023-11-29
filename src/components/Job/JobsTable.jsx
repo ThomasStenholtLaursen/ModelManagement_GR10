@@ -6,19 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Skeleton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
-const JobsTable = ({ jobs, isLoading }) => {
-    const navigate = useNavigate();
-
-    const handleNavigation = (path) => {
-      navigate(path);
-    };
-    const formattedDate = (date) => {
-        return new Date(date).toLocaleDateString();}
-
-
+const JobsTable = ({ jobs, isLoading, handleNavigation }) => {
+  const formattedDate = (date) => {
+    return new Date(date).toLocaleDateString();
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -30,6 +24,7 @@ const JobsTable = ({ jobs, isLoading }) => {
               <TableCell>Location</TableCell>
               <TableCell align="center">Start Date</TableCell>
               <TableCell align="center">Days</TableCell>
+              <TableCell align="center">Inspect</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,16 +43,26 @@ const JobsTable = ({ jobs, isLoading }) => {
                     <TableCell>
                       <Skeleton variant="text" />
                     </TableCell>
+                    <TableCell>
+                      <Skeleton variant="icon" />
+                    </TableCell>
                   </TableRow>
                 ))
               : jobs.map((job) => (
-                  <TableRow key={job.jobId} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} onClick={() => handleNavigation(`/jobs/${job.jobId}`)}>
-                    <TableCell>
-                      {job.customer}
+                  <TableRow
+                    key={job.jobId}
+                    sx={{ "&:hover": { backgroundColor: "#f5f5f5" } }}
+                    onClick={() => handleNavigation(job.jobId)}
+                  >
+                    <TableCell>{job.customer}</TableCell>
+                    <TableCell>{job.location}</TableCell>
+                    <TableCell align="center">
+                      {formattedDate(job.startDate)}
                     </TableCell>
-                    <TableCell >{job.location}</TableCell>
-                    <TableCell align="center">{formattedDate(job.startDate)}</TableCell>
                     <TableCell align="center">{job.days}</TableCell>
+                    <TableCell align="center">
+                      <ArrowForwardIcon />
+                    </TableCell>
                   </TableRow>
                 ))}
           </TableBody>

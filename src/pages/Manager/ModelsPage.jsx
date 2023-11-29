@@ -1,11 +1,11 @@
-import { useAuth } from "../hooks/useAuth";
-import useFetchModels from "../hooks/useFetchModels";
+import { useAuth } from "../../hooks/useAuth";
+import useFetchModels from "../../hooks/useFetchModels";
 import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useNavigate } from "react-router";
-import Paths from "../config/paths";
-import ModelsGrid from "../components/Model/ModelsGrid";
+import Paths from "../../config/paths";
+import ModelsGrid from "../../components/Model/ModelsGrid";
 
 const ModelsPage = () => {
   const navigate = useNavigate();
