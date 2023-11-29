@@ -19,16 +19,14 @@ const useDeleteModelFromJob = (token) => {
             "Content-Type": "application/json",
           },
         });
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
         enqueueSnackbar(`Deleted model from job`, {
           variant: "success",
         });
-        return data;
+        return response;
       } catch (error) {
         enqueueSnackbar("Something went wrong", {
           variant: "error",

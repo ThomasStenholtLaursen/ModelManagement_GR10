@@ -93,6 +93,11 @@ const ManagerJobPage = () => {
     }
   };
 
+  const reloadJobAndModels = async () => {
+    await getModels();
+    await getJob();
+  };
+
   const handleJobsLinkClick = () => {
     navigate(-1);
   };
@@ -130,7 +135,7 @@ const ManagerJobPage = () => {
             <Typography variant="h5">{`Models on ${job.customer}`}</Typography>
           </Box>
           <Box sx={{ pb: 2 }}>
-            <ModelsOnJobTable job={job} />
+            <ModelsOnJobTable job={job} models={models} reloadJobAndModels={reloadJobAndModels}/>
           </Box>
 
           <Box sx={{ pb: 2 }}>
