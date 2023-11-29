@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import modalStyle from "../../styles/ModalStyles";
+import { DatePicker } from "@mui/x-date-pickers";
 
-const AddManagerModal = ({
+const AddModelExpenseModal = ({
   open,
   handleClose,
-  managerFormData,
+  expenseFormData,
   handleChange,
   handleSubmit,
   isFormValid,
+  handleDateChange,
 }) => {
   return (
     <Modal
@@ -19,39 +21,36 @@ const AddManagerModal = ({
     >
       <Box sx={modalStyle}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Manager
+          Add Expense
         </Typography>
         <TextField
           required
-          label="First Name"
-          name="firstName"
-          value={managerFormData.firstName}
+          label="Amount"
+          name="amount"
+          type="number"
+          value={expenseFormData.amount}
           onChange={handleChange}
           margin="normal"
         />
-        <TextField
-          required
-          label="Last Name"
-          name="lastName"
-          value={managerFormData.lastName}
-          onChange={handleChange}
-          margin="normal"
+        <DatePicker
+          label="Date"
+          value={expenseFormData.date}
+          onChange={handleDateChange}
+          slotProps={{
+            textField: {
+              variant: "outlined",
+              fullWidth: true,
+              margin: "normal",
+              required: true,
+            },
+          }}
         />
+
         <TextField
           required
-          label="Email"
-          name="email"
-          type="email"
-          value={managerFormData.email}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          label="Password"
-          name="password"
-          type="password"
-          value={managerFormData.password}
+          label="Description"
+          name="text"
+          value={expenseFormData.text}
           onChange={handleChange}
           margin="normal"
         />
@@ -68,4 +67,4 @@ const AddManagerModal = ({
   );
 };
 
-export default AddManagerModal;
+export default AddModelExpenseModal;

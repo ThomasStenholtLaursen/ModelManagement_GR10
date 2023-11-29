@@ -1,7 +1,7 @@
 import { Typography, Card, CardContent, Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"; // Importing an icon for demonstration
 import EmailIcon from "@mui/icons-material/Email";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 const HomePage = () => {
   const { user } = useAuth();

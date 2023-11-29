@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AddModelForm from "../components/Model/AddModelForm";
-import Paths from "../config/paths";
+import AddModelForm from "../../components/Model/AddModelForm";
+import Paths from "../../config/paths";
 import { useNavigate } from "react-router";
-import { useAuth } from "../hooks/useAuth";
-import useAddModel from "../hooks/useAddModel";
+import { useAuth } from "../../hooks/useAuth";
+import useAddModel from "../../hooks/useAddModel";
 import validator from "validator";
 
 const AddModelPage = () => {

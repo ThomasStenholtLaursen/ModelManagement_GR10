@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { useAuth } from "../hooks/useAuth";
-import useFetchManagers from "../hooks/useFetchManagers";
-import AddManagerModal from "../components/Manager/AddManagerModal";
-import useAddManager from "../hooks/useAddManager";
+import { useAuth } from "../../hooks/useAuth";
+import useFetchManagers from "../../hooks/useFetchManagers";
+import AddManagerModal from "../../components/Manager/AddManagerModal";
+import useAddManager from "../../hooks/useAddManager";
 import validator from "validator";
-import ManagersGrid from "../components/Manager/ManagersGrid";
+import ManagersGrid from "../../components/Manager/ManagersGrid";
 import { useNavigate } from "react-router-dom";
-import Paths from "../config/paths";
+import Paths from "../../config/paths";
 
-const ManagerPage = () => {
+const ManagersPage = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
   const { fetchData, isLoading, error: fetchError } = useFetchManagers(token);
@@ -97,4 +97,4 @@ const ManagerPage = () => {
   );
 };
 
-export default ManagerPage;
+export default ManagersPage;

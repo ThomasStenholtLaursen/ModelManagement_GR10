@@ -1,13 +1,6 @@
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
-import {
-  Button,
-  TextField,
-  Autocomplete,
-  Modal,
-  Box,
-} from "@mui/material";
+import { useState } from "react";
+import { Button, TextField, Autocomplete, Modal, Box } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const AddModelToJobModal = ({ models, open, onClose, onAdd }) => {
@@ -19,32 +12,38 @@ const AddModelToJobModal = ({ models, open, onClose, onAdd }) => {
 
   const handleAdd = () => {
     if (selectedModel) {
-        onAdd(selectedModel);
-        onClose();
-  }}
+      onAdd(selectedModel);
+      onClose();
+    }
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-      }}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 400,
+          bgcolor: "background.paper",
+          boxShadow: 24,
+          p: 4,
+        }}
+      >
         <Autocomplete
           disablePortal
           id="autocomplete"
-          options={models.map((model) => ({ label: `${model.firstName} ${model.lastName}`, value: model }))}
+          options={models.map((model) => ({
+            label: `${model.firstName} ${model.lastName}`,
+            value: model,
+          }))}
           getOptionLabel={(option) => option.label}
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
           renderInput={(params) => <TextField {...params} label="Model" />}
-          onChange={(event, newValue) => handleSelectModel(newValue)}
+          onChange={(_, newValue) => handleSelectModel(newValue)}
         />
-        <Button variant="contained" onClick={onClose} sx={{ mt: 2, mr: 2 }} >
+        <Button variant="contained" onClick={onClose} sx={{ mt: 2, mr: 2 }}>
           Cancel
         </Button>
         <Button
@@ -56,7 +55,6 @@ const AddModelToJobModal = ({ models, open, onClose, onAdd }) => {
         >
           Add Model
         </Button>
-        
       </Box>
     </Modal>
   );

@@ -1,19 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-  display: "flex",
-  flexDirection: "column",
-};
+import modalStyle from "../../styles/ModalStyles";
 
 const AddJobModal = ({
   open,
@@ -31,7 +19,7 @@ const AddJobModal = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={modalStyle}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Add Job
         </Typography>
@@ -60,6 +48,7 @@ const AddJobModal = ({
           required
           label="Days"
           name="days"
+          type="number"
           value={jobFormData.days}
           onChange={handleChange}
           margin="normal"

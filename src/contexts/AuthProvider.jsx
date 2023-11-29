@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { parseTokenToUser } from "../helpers/ParseToken";
-import { getTokenExpiration } from "../helpers/TokenExpiration";
 import useLoginUser from "../hooks/useLoginUser";
+import { ParseJwt } from "../helpers/ParseJwt";
 
 export const AuthContext = createContext(null);
 
@@ -15,9 +15,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkTokenExpiration = () => {
-      const exp = getTokenExpiration(token);
-      if (exp && Date.now() >= exp * 1000) {
-        logoutUser();
+      if (token) {
+        const parsedToken = ParseJwt(token);
+        if (parsedToken.exp && Date.now() >= parsedToken.exp * 1000) {
+          logoutUser();
+        }
       }
     };
 
